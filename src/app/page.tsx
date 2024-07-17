@@ -1,95 +1,48 @@
+'use client';
 import Image from "next/image";
-import styles from "./page.module.css";
+import styles from "../page.module.css";
+import 'bootstrap/dist/css/bootstrap.css';
 
-export default function Home() {
+export default function Form1() {
+
+    async function SendNumber(e: any){
+        e.preventDefault();
+    
+        const data = {
+            Number: (e.target.Number.value)
+        }
+
+        if (data.Number > 0){
+          findCycle(data.Number)
+        }else{
+            alert("The number has to be greater than 0")
+        }
+        
+      }
+
+      async function findCycle(Number: number){
+        let divide = 1 / Number;
+        let obtainCycle = divide.toString().slice(2).split("0")
+        if (obtainCycle.length > 2 && obtainCycle[1] == obtainCycle[2]) {
+          let cycle = obtainCycle[1].split("")
+          alert(cycle.length + 1)
+        }else{
+          alert(-1)
+        }
+      }
+
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
+      <form onSubmit={SendNumber} className="container col-6 text-center mt-4 bg-light">
         <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+            <div className="form-group mt-5">
+                <div className="form-group mb-3">
+                    <label>Integer Number</label>
+                    <input type="number" className="form-control" id="Number" required aria-describedby="emailHelp " />
+                </div>
+            </div>
+            <button type="submit" className="btn btn-primary mt-3 mb-3 mx-auto d-block">Send Number</button>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </form>
   );
 }
